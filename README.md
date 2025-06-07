@@ -1,6 +1,6 @@
-# Simple H.323 NAT traversal
+# Simple H.323 NAT Traversal
 
-A tool that opens a temporary DNAT using H.323 NAT traversal to create a breakpoint for red teaming under NAT environments!
+A tool that opens a temporary DNAT using H.323 NAT Traversal to create a breakpoint for red teaming under NAT environments!
 
 ## Reference
 
@@ -16,7 +16,7 @@ A tool that opens a temporary DNAT using H.323 NAT traversal to create a breakpo
     Listening on 0.0.0.0:1720 ...
     ```
 
-2. **Send an H.323 NAT traversal packet**  
+2. **Send an H.323 NAT Traversal packet**  
    - NAT public IP: `2.2.2.2`
    - Compromised device internal IP: `192.168.1.2`
    - Internal web server IP: `192.168.1.3`
@@ -51,6 +51,8 @@ A tool that opens a temporary DNAT using H.323 NAT traversal to create a breakpo
 - Use different IP C&C servers for `192.168.1.2` and `192.168.1.3`.
 - This makes it difficult for IR teams to correlate the two machines and trace the attacker's path.
 
+## Demo video
+- [YouTube](https://youtu.be/0mvEMlD_oa8)
 
 ## Disclaimer
 This project is intended for educational and research purposes only. Any actions and/or activities related to this code are solely your responsibility. The authors and contributors are not responsible for any misuse or damage caused by this project. Please ensure that you have proper authorization before testing, using, or deploying any part of this code in any environment. Unauthorized use of this code may violate local, state, and federal laws.

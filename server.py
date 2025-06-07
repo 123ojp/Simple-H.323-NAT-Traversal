@@ -12,39 +12,45 @@ def main():
     SERVER_PORT = 1720
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
+        server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server.bind((SERVER_IP, SERVER_PORT))
         server.listen(5) # Allow a backlog of 5 connections
         print(f"Listening on {SERVER_IP}:{SERVER_PORT}...")
+        try:
+            while True: 
+                conn, addr = server.accept()
+                with conn:
+                    client_ip, client_port = addr # Parse the client's connecting IP and port
+                    print(f"Connected by: {client_ip}:{client_port}")
+                    
+                    data = conn.recv(4096)
+                    if data:
+                        payload_hex = data.hex()
+                        local_ip_hex = payload_hex[50:58]
+                        local_port_hex = payload_hex[58:62]
 
-        while True: 
-            conn, addr = server.accept()
-            with conn:
-                client_ip, client_port = addr # Parse the client's connecting IP and port
-                print(f"Connected by: {client_ip}:{client_port}")
-                
-                data = conn.recv(4096)
-                if data:
-                    payload_hex = data.hex()
-                    local_ip_hex = payload_hex[50:58]
-                    local_port_hex = payload_hex[58:62]
+                        local_ip_str = hex_to_ip(local_ip_hex) # Keep as string for printing
+                        local_port = hex_to_port(local_port_hex)
 
-                    local_ip_str = hex_to_ip(local_ip_hex) # Keep as string for printing
-                    local_port = hex_to_port(local_port_hex)
+                        print(f"Received Remote IP (from payload): {local_ip_str}")
+                        print(f"Received Remote Port (from payload): {local_port}")
 
-                    print(f"Received Remote IP (from payload): {local_ip_str}")
-                    print(f"Received Remote Port (from payload): {local_port}")
+                        try:
+                            ip_obj = ipaddress.ip_address(local_ip_str)
+                            if ip_obj.is_private:
+                                print(f"*** WARNING: Received Remote IP {local_ip_str} is a PRIVATE IP address! ( H.323 traversal failed! ) ***")
+                        except ipaddress.AddressValueError:
+                            print(f"Error: Invalid IP address format received: {local_ip_str}")          
+                        print("-" * 30)
+                        conn.sendall(b"Server received your data!")
+                    else:
+                        print(f"No data received from {client_ip}:{client_port}")
+                        print("-" * 30)
+                    conn.close()
 
-                    try:
-                        ip_obj = ipaddress.ip_address(local_ip_str)
-                        if ip_obj.is_private:
-                            print(f"*** WARNING: Received Remote IP {local_ip_str} is a PRIVATE IP address! ( H.323 traversal failed! ) ***")
-                    except ipaddress.AddressValueError:
-                        print(f"Error: Invalid IP address format received: {local_ip_str}")          
-                    print("-" * 30)
-                    conn.sendall(b"Server received your data!")
-                else:
-                    print(f"No data received from {client_ip}:{client_port}")
-                    print("-" * 30)
+        except:
+            print("Bye!")
+            server.close()
 
 if __name__ == '__main__':
     main()
