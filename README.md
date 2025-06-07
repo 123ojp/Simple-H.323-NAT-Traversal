@@ -44,12 +44,11 @@ A tool that opens a temporary DNAT using H.323 NAT Traversal to create a breakpo
     Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
     9.9.9.9 - - [07/Jun/2025 10:10:08] "GET / HTTP/1.1" 200 -
     ```
-    > You will see that the logs show requests coming from 9.9.9.9, making it impossible to associate them with 192.168.1.2.
+    > You will see that the logs show requests coming from 9.9.9.9, making it difficult to associate them with 192.168.1.2.
+    > The only way to relate them is that both 192.168.1.2 and 192.168.1.3 have communicated with 9.9.9.9.
 
 ## Best Practices
-
-- Use different IP C&C servers for `192.168.1.2` and `192.168.1.3`.
-- This makes it difficult for IR teams to correlate the two machines and trace the attacker's path.
+- Use different IP C&C servers for `192.168.1.2` and `192.168.1.3` to prevent 9.9.9.9 from being banned and losing the C&C connection.
 
 ## Demo video
 - [YouTube](https://youtu.be/0mvEMlD_oa8)
