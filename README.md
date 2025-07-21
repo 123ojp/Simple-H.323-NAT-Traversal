@@ -3,8 +3,10 @@
 A tool that opens a temporary DNAT using H.323 NAT Traversal to create a breakpoint for red teaming under NAT environments!
 
 ## Reference
-
-- This is a PoC code for Black Hat USA 2025 Briefing: [From Spoofing to Tunneling: New Red Team's Networking Techniques for Initial Access and Evasion](https://www.blackhat.com/us-25/briefings/schedule/#from-spoofing-to-tunneling-new-red-teams-networking-techniques-for-initial-access-and-evasion-44678) 
+- This is a PoC code for Talks: From Spoofing to Tunneling: New Red Team's Networking Techniques for Initial Access and Evasion
+    - [Black Hat USA 2025 Briefing](https://www.blackhat.com/us-25/briefings/schedule/#from-spoofing-to-tunneling-new-red-teams-networking-techniques-for-initial-access-and-evasion-44678)
+    - [DEF CON 33 Main Stage](https://defcon.org/html/defcon-33/dc-33-speakers.html#content_60316)
+    - [HITCON 2025](https://hitcon.org/2025/en-US/agenda/)
 - This idea is derived from [NAT slipstreaming](https://samy.pl/slipstream) by [@samykamkar](https://twitter.com/samykamkar)
 
 ## Usage
